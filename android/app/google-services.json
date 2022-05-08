@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "351285755021",
+    "project_id": "bis-shufersal-coupons",
+    "storage_bucket": "bis-shufersal-coupons.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:351285755021:android:1b1af0a7afaa1e83e6b6c4",
+        "android_client_info": {
+          "package_name": "com.example.tenbis_shufersal_coupons"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "351285755021-muvplvjeb67maqkllh16ckput9harurj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVHTtXXRXJVm9WLHfGbfYSrLIWhGHv81g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "351285755021-muvplvjeb67maqkllh16ckput9harurj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
