@@ -62,7 +62,7 @@ class MainCouponsList extends StatelessWidget {
         children: [Text(item.name)],
       ),
       onTap: () {
-        showCouponPopup('${item.name}.png', context);
+        showCouponPopup(item.name, context);
       },
     );
   }
