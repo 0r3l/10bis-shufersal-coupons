@@ -1,20 +1,52 @@
 import 'package:flutter/material.dart';
-import 'package:tenbis_shufersal_coupons/coupons-list.dart';
-import 'package:tenbis_shufersal_coupons/fetch-coupons-list.dart';
+// Import the firebase_core plugin
 import 'package:firebase_core/firebase_core.dart';
+import 'package:tenbis_shufersal_coupons/views/user-and-family-group-validation.dart';
+import 'package:tenbis_shufersal_coupons/views/loading.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+
+import 'blocs/list_block.dart';
 
 void main() {
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(App());
+  configLoading();
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+void configLoading() {
+  EasyLoading.instance
+    ..displayDuration = const Duration(milliseconds: 2000)
+    ..indicatorType = EasyLoadingIndicatorType.fadingCircle
+    ..loadingStyle = EasyLoadingStyle.dark
+    ..indicatorSize = 45.0
+    ..radius = 10.0
+    ..progressColor = Colors.yellow
+    ..backgroundColor = Colors.green
+    ..indicatorColor = Colors.yellow
+    ..textColor = Colors.yellow
+    ..maskColor = Colors.blue.withOpacity(0.5)
+    ..userInteractions = true
+    ..dismissOnTap = false;
+}
 
-  // This widget is the root of your application.
+/// We are using a StatefulWidget such that we only create the [Future] once,
+/// no matter how many times our widget rebuild.
+/// If we used a [StatelessWidget], in the event where [App] is rebuilt, that
+/// would re-initialize FlutterFire and make our application re-enter loading state,
+/// which is undesired.
+class App extends StatefulWidget {
+  // Create the initialization Future outside of `build`:
+  @override
+  _AppState createState() => _AppState();
+}
+
+class _AppState extends State<App> {
+  /// The future is part of the state of our widget. We should not call `initializeApp`
+  /// directly inside [build].
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+
   @override
   Widget build(BuildContext context) {
-    final Future<FirebaseApp> _initialization = Firebase.initializeApp();
-
     return FutureBuilder(
       // Initialize FlutterFire:
       future: _initialization,
@@ -22,72 +54,29 @@ class MyApp extends StatelessWidget {
         // Check for errors
         if (snapshot.hasError) {
           print(snapshot.error.toString());
+          throw snapshot.error!;
         }
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
           return MaterialApp(
-            title: 'Flutter Demo',
-            theme: ThemeData(
-              primarySwatch: Colors.orange,
-            ),
-            home: Directionality(
-              textDirection: TextDirection.rtl,
-              child: MyHomePage(title: 'קופוני תן ביס - שופרסל'),
-            ),
-          );
+              title: 'Giss',
+              theme: new ThemeData(
+                  scaffoldBackgroundColor: const Color(0xFFEFEFEF)),
+              builder: EasyLoading.init(),
+              home: Directionality(
+                  textDirection: TextDirection.rtl,
+                  child: UserAndFamilyGroupValidation()));
         }
 
         // Otherwise, show something whilst waiting for initialization to complete
-        return Text('טוען...');
+        return Loading();
       },
     );
   }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  dynamic items = [];
-  @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Directionality(
-        textDirection: TextDirection.rtl,
-        child: FetchCouponsList(
-          emptyShoppingListDescription: '',
-          list: () => CouponsList(items: items),
-          collection: 'coupons',
-          onFetch: (items) => this.items = items,
-        ),
-      ),
-      // This trailing comma makes auto-formatting nicer for build methods.
-    );
+  void dispose() {
+    bloc.dispose();
+    super.dispose();
   }
 }
