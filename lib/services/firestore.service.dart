@@ -36,7 +36,8 @@ class FirestoreService {
       final originData = (await transaction.get(originDocRef)).data();
       transaction.delete(originDocRef);
       if (originData != null) {
-        originData.update('deletedAt', (_) => DateTime.now());
+        originData.update('deletedAt', (_) => DateTime.now(),
+            ifAbsent: () => DateTime.now());
         transaction.set(destinationDocRef, originData);
       }
     });

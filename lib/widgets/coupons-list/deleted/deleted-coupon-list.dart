@@ -69,7 +69,7 @@ class _DeletedCouponListState extends State<DeletedCouponList> {
             });
           }),
       title: Text(
-          '${item.name} (${DateFormat.Hm().format(item.deletedAt!.toDate())})'),
+          '${item.name.substring(0, item.name.length - 4)} (${DateFormat.Hm().format(item.deletedAt!.toDate())})'),
     );
   }
 }

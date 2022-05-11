@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:tenbis_shufersal_coupons/models/family-group.dart';
 import 'package:tenbis_shufersal_coupons/models/coupon.model.dart';
@@ -26,12 +25,12 @@ class MainCouponsList extends StatelessWidget {
   Widget groupedList() {
     return GroupedListView<dynamic, String>(
         elements: items,
-        groupBy: (element) => element.toString(),
-        groupComparator: (String s1, String s2) {
+        groupBy: (element) => element.name.split('.')[1],
+        groupComparator: (s1, s2) {
           return int.parse(s1) - int.parse(s2);
         },
         groupSeparatorBuilder: (String groupId) => Text(
-              'ללא סיווג',
+              groupId,
               style:
                   TextStyle(color: Colors.orange, fontWeight: FontWeight.bold),
             ),
@@ -59,7 +58,7 @@ class MainCouponsList extends StatelessWidget {
   Widget listTile(BuildContext context, Coupon item) {
     return ListTile(
       title: Wrap(
-        children: [Text(item.name)],
+        children: [Text(item.name.substring(0, item.name.length - 4))],
       ),
       onTap: () {
         showCouponPopup(item.name, context);
