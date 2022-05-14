@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:tenbis_shufersal_coupons/models/family-group.dart';
 import 'package:tenbis_shufersal_coupons/models/coupon.model.dart';
 import 'package:tenbis_shufersal_coupons/services/firestore.service.dart';
@@ -30,7 +31,8 @@ class MainCouponsList extends StatelessWidget {
           return int.parse(s1) - int.parse(s2);
         },
         groupSeparatorBuilder: (String groupId) => Text(
-              groupId,
+              DateFormat("MMMM", 'he')
+                  .format(new DateTime.utc(2022, int.parse(groupId), 1)),
               style:
                   TextStyle(color: Colors.orange, fontWeight: FontWeight.bold),
             ),

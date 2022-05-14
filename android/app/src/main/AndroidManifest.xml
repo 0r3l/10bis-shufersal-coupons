@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.tenbis_shufersal_coupons">
    <application
-        android:label="tenbis_shufersal_coupons"
+        android:label="קופוני תן ביס - שופרסל"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
