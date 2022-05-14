@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 // Import the firebase_core plugin
 import 'package:firebase_core/firebase_core.dart';
+import 'package:tenbis_shufersal_coupons/blocs/int_block.dart';
 import 'package:tenbis_shufersal_coupons/views/user-and-family-group-validation.dart';
 import 'package:tenbis_shufersal_coupons/views/loading.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -77,6 +78,7 @@ class _AppState extends State<App> {
   @override
   void dispose() {
     bloc.dispose();
+    intBloc.dispose();
     super.dispose();
   }
 }

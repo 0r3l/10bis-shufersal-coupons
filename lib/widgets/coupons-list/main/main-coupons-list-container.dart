@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tenbis_shufersal_coupons/blocs/int_block.dart';
 import 'package:tenbis_shufersal_coupons/services/firestore.service.dart';
 import 'package:tenbis_shufersal_coupons/types/get-family-group.dart';
 import 'package:tenbis_shufersal_coupons/models/coupon.model.dart';
@@ -39,17 +40,26 @@ class _MainShoppingListContainerState extends State<MainShoppingListContainer> {
     return Padding(
         padding: EdgeInsets.only(left: 5, right: 5),
         child: Column(children: [
+          Directionality(
+              textDirection: TextDirection.rtl,
+              child: StreamBuilder(
+                  initialData: 0,
+                  builder: (context, snapshot) =>
+                      Text('${snapshot.data as int} שוברים זמינים'),
+                  stream: intBloc.getInt)),
           Expanded(
               child: FetchCouponsList(
-            emptyShoppingListDescription: 'הוספת מוצרים ע״י תיבת החיפוש למעלה',
-            shoppingList: () => MainCouponsList(
-                items: this._items,
-                collection: collection,
-                familyGroup: widget.getFamilyGroup()),
-            collection: collection,
-            familyGroup: widget.getFamilyGroup(),
-            onFetch: (items) => this._items = items,
-          )),
+                  emptyShoppingListDescription: 'אין שוברים זמינים',
+                  shoppingList: () => MainCouponsList(
+                      items: this._items,
+                      collection: collection,
+                      familyGroup: widget.getFamilyGroup()),
+                  collection: collection,
+                  familyGroup: widget.getFamilyGroup(),
+                  onFetch: (items) {
+                    intBloc.updateInt(items.length);
+                    this._items = items;
+                  })),
           TextButton(
               onPressed: () => Navigator.push(
                   context,
