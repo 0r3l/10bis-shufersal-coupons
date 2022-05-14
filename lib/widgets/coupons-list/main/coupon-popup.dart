@@ -35,20 +35,24 @@ Widget _buildCouponWithImage(String filename) {
 
 Widget _buildPopupDialog(BuildContext context, String imageUrl) {
   return AlertDialog(
-    title: Text('פרטי שובר'),
-    content: Column(
-      mainAxisSize: MainAxisSize.max,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        CachedNetworkImage(imageUrl: imageUrl),
-      ],
+    title: Directionality(
+        textDirection: TextDirection.rtl, child: Text('פרטי שובר')),
+    content: Expanded(
+      child: InteractiveViewer(
+          boundaryMargin: EdgeInsets.zero,
+          minScale: 0.1,
+          maxScale: 2.5,
+          child: CachedNetworkImage(
+            imageUrl: imageUrl,
+          )),
     ),
     actions: <Widget>[
       TextButton(
         onPressed: () {
           Navigator.of(context).pop();
         },
-        child: const Text('סגור'),
+        child: Directionality(
+            textDirection: TextDirection.rtl, child: Text('סגור')),
       ),
     ],
   );
