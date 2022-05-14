@@ -37,14 +37,17 @@ Widget _buildPopupDialog(BuildContext context, String imageUrl) {
   return AlertDialog(
     title: Directionality(
         textDirection: TextDirection.rtl, child: Text('פרטי שובר')),
-    content: Expanded(
-      child: InteractiveViewer(
-          boundaryMargin: EdgeInsets.zero,
-          minScale: 0.1,
-          maxScale: 2.5,
-          child: CachedNetworkImage(
-            imageUrl: imageUrl,
-          )),
+    content: Column(
+      children: [
+        // Text(imageUrl),
+        InteractiveViewer(
+            boundaryMargin: EdgeInsets.zero,
+            minScale: 0.1,
+            maxScale: 2.5,
+            child: CachedNetworkImage(
+              imageUrl: imageUrl,
+            ))
+      ],
     ),
     actions: <Widget>[
       TextButton(
