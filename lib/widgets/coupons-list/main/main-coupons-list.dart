@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:tenbis_shufersal_coupons/models/family-group.dart';
 import 'package:tenbis_shufersal_coupons/models/coupon.model.dart';
@@ -20,6 +21,7 @@ class MainCouponsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    initializeDateFormatting();
     return groupedList();
   }
 
