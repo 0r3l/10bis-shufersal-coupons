@@ -151,7 +151,7 @@ class _GissQRViewState extends State<GissQRView> {
       // scan only once
       if (!isScanned) {
         isScanned = true;
-        widget.onScanCompleted(scanData.code);
+        widget.onScanCompleted(scanData.code!);
         Navigator.pop(context);
       }
     });

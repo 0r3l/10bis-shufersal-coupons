@@ -26,17 +26,17 @@ Widget _buildCouponWithImage(String filename) {
         }
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
-          return _buildPopupDialog(context, snapshot.data);
+          return _buildPopupDialog(context, snapshot.data,
+              filename.substring(0, filename.lastIndexOf('.')));
         }
         return Loading();
       },
       future: storage.ref().child(filename).getDownloadURL());
 }
 
-Widget _buildPopupDialog(BuildContext context, String imageUrl) {
+Widget _buildPopupDialog(BuildContext context, String imageUrl, String title) {
   return AlertDialog(
-    title: Directionality(
-        textDirection: TextDirection.rtl, child: Text('פרטי שובר')),
+    title: Directionality(textDirection: TextDirection.rtl, child: Text(title)),
     content: Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       crossAxisAlignment: CrossAxisAlignment.stretch,

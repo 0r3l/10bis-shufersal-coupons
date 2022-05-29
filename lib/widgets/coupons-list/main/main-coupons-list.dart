@@ -30,7 +30,14 @@ class MainCouponsList extends StatelessWidget {
         elements: items,
         groupBy: (element) => element.name.split('.')[1],
         groupComparator: (s1, s2) {
-          return int.parse(s1) - int.parse(s2);
+          return int.parse(s2) - int.parse(s1);
+        },
+        itemComparator: (s1, s2) {
+          Coupon c1 = s1;
+          Coupon c2 = s2;
+          extractDay(String name) => int.parse(name.split('.')[0]);
+
+          return extractDay(c2.name) - extractDay(c1.name);
         },
         groupSeparatorBuilder: (String groupId) => Text(
               DateFormat("MMMM", 'he')

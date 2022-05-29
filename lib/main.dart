@@ -60,9 +60,9 @@ class _AppState extends State<App> {
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
           return MaterialApp(
-              title: 'Giss',
-              theme: new ThemeData(
-                  scaffoldBackgroundColor: const Color(0xFFEFEFEF)),
+              title: 'קופני תן ביס שופרסל',
+              theme:
+                  ThemeData(scaffoldBackgroundColor: const Color(0xFFEFEFEF)),
               builder: EasyLoading.init(),
               home: Directionality(
                   textDirection: TextDirection.rtl,
