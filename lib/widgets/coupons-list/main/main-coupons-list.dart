@@ -72,7 +72,7 @@ class MainCouponsList extends StatelessWidget {
         children: [Text(item.name.substring(0, item.name.length - 4))],
       ),
       onTap: () {
-        showCouponPopup(item.name, context);
+        showCouponPopup(item, context);
       },
     );
   }
